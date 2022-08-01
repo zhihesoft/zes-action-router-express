@@ -25,16 +25,24 @@
   },
   "homepage": "https://github.com/zhihesoft/zes-action-router-express#readme",
   "devDependencies": {
+    "@types/chai": "^4.3.1",
+    "@types/cookie-parser": "^1.4.3",
+    "@types/mocha": "^9.1.1",
     "@typescript-eslint/eslint-plugin": "^5.31.0",
     "@typescript-eslint/parser": "^5.31.0",
-    "eslint": "^8.21.0"
+    "chai": "^4.3.6",
+    "eslint": "^8.21.0",
+    "mocha": "^10.0.0"
   },
   "dependencies": {
+    "cookie-parse": "^0.4.0",
     "cookie-parser": "^1.4.6",
     "express": "^4.18.1",
     "express-jwt": "^7.7.5",
     "log4js": "^6.6.1",
     "reflect-metadata": "^0.1.13",
-    "zes-action-router": "^1.0.10"
+    "tsyringe": "^4.7.0",
+    "zes-action-router": "^1.0.12",
+    "zes-util": "^1.0.2"
   }
 }
