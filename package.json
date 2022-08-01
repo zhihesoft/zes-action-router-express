@@ -1,0 +1,40 @@
+{
+  "name": "zes-action-router-express",
+  "version": "1.0.0",
+  "description": "zes: action router for express",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "lint": "npx eslint src/",
+    "test": "mocha ./dist/tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhihesoft/zes-action-router-express.git"
+  },
+  "keywords": [
+    "zes",
+    "action",
+    "router",
+    "express"
+  ],
+  "author": "Stanley Hou",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhihesoft/zes-action-router-express/issues"
+  },
+  "homepage": "https://github.com/zhihesoft/zes-action-router-express#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.21.0"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "express": "^4.18.1",
+    "express-jwt": "^7.7.5",
+    "log4js": "^6.6.1",
+    "reflect-metadata": "^0.1.13",
+    "zes-action-router": "^1.0.10"
+  }
+}

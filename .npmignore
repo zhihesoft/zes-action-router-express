@@ -1,0 +1,13 @@
+# .npmignore
+.vscode
+node_modules
+src
+logs
+configs
+output
+# all tests and tgs
+dist/tests
+**/*.spec.js
+**/*.spec.js.map
+**/*.spec.d.ts
+**/*.tgz
