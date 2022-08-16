@@ -2,11 +2,10 @@ import { assert } from "chai";
 import log4js from "log4js";
 import "reflect-metadata";
 import { injectable } from "tsyringe";
-import { ActionHook, ActionHookContext, ActionHookType, ActionProcessor, ActionRouting } from "zes-action-router";
-import { Http } from "zes-util";
-import { ExpressActionApp } from "../lib/express.action.app";
-import { ExpressActionRouter } from "../lib/express.action.router";
-import { StartupInfo } from "../lib/startup.info";
+import { ActionHook, ActionHookContext, ActionHookType, ActionProcessor, ActionRouter, ActionRouting } from "zes-action-router";
+import { HttpConnector } from "zes-connector";
+import { ExpressApp } from "../lib/express.app.mjs";
+import { StartupInfo } from "../lib/startup.info.mjs";
 
 log4js.configure("./log4js-test.json");
 
@@ -32,7 +31,7 @@ class TestProcess2 implements ActionProcessor {
 
 class TestBeforeHook implements ActionHook {
     hook(context: ActionHookContext, args: unknown): unknown {
-        return Object.assign(<object>args, { hookValue: "hook" });
+        return Object.assign(args as object, { hookValue: "hook" });
     }
 }
 
@@ -56,15 +55,17 @@ const testRouter: ActionRouting[] = [
     },
 ];
 
-let app: ExpressActionApp;
-const http = new Http("http://localhost:3000");
+let app: ExpressApp;
+const http = new HttpConnector("http://localhost:3000");
 
 describe(`express.action.app`, () => {
-    before(() => {
-        app = new ExpressActionApp(startupInfo);
-        const router = new ExpressActionRouter("111111", testRouter);
-        router.engine.hook(ActionHookType.before, new TestBeforeHook());
-        app.add("/test", router);
+    before(async () => {
+        http.open();
+        app = new ExpressApp(startupInfo);
+        const actions = new ActionRouter(testRouter);
+        actions.hook(ActionHookType.before, new TestBeforeHook());
+        app.addRouter("/test", actions, "111111");
+        await app.open();
     });
     after(() => {
         app.close();

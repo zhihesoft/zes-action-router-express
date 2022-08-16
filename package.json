@@ -1,6 +1,7 @@
 {
   "name": "zes-action-router-express",
   "version": "1.0.0",
+  "type": "module",
   "description": "zes: action router for express",
   "main": "index.js",
   "scripts": {
@@ -42,7 +43,8 @@
     "log4js": "^6.6.1",
     "reflect-metadata": "^0.1.13",
     "tsyringe": "^4.7.0",
-    "zes-action-router": "^1.0.12",
-    "zes-util": "^1.0.2"
+    "zes-action-router": "^1.0.15",
+    "zes-connector": "^1.0.5",
+    "zes-util": "^1.1.0"
   }
 }
