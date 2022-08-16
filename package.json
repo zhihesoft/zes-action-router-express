@@ -1,6 +1,6 @@
 {
   "name": "zes-action-router-express",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "zes: action router for express",
   "main": "index.js",
