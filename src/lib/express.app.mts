@@ -74,7 +74,7 @@ export class ExpressApp implements ActionApp {
         }
 
         for (const path of paths) {
-            logger.debug(`register path ${path}`);
+            // logger.debug(`register path ${path}`);
             const meta = actions.getOption(path);
             const verb = meta?.verb ?? "ANY";
             let fun = router.use;
@@ -115,7 +115,6 @@ export class ExpressApp implements ActionApp {
             }
         }
     }
-
 }
 
 const logger = logj.getLogger(ExpressApp.name);
