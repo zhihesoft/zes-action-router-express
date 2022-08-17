@@ -13,6 +13,7 @@ export function expressTests() {
             host: "localhost",
             port: 3000,
         }
+        let token = "";
         let app: ExpressApp;
         const http = new HttpConnector("http://localhost:3000");
         before(async () => {
@@ -31,10 +32,6 @@ export function expressTests() {
             const ret = await http.get<{ message: string }>(`/test/one`, { message: "hello" });
             assert.equal(ret.message, "hello");
         });
-        // it(`/test/two should return hello`, async () => {
-        //     const ret = await http.get<{ message: string }>(`/test/two`, { message: "hello" });
-        //     assert.equal(ret.message, "hello");
-        // });
         it(`/test/fold/two should return test`, async () => {
             const ret = await http.post<{ message: string }>(`/test/fold/two`, { test: "test" });
             assert.equal(ret.message, "test");
@@ -42,6 +39,24 @@ export function expressTests() {
         it(`/test/fold/two should have hook value`, async () => {
             const ret = await http.post<{ hookValue: string }>(`/test/fold/two`, { test: "test" });
             assert.equal(ret.hookValue, "hook");
+        });
+        it(`/test/two should return 401`, async () => {
+            await http.get<{ message: string }>(`/test/two`, { message: "hello" })
+                .then(ret => {
+                    assert.fail(`never succ`);
+                })
+                .catch(err => {
+                    assert.equal(err.response.status, 401);
+                });
+        });
+        it(`get token`, async () => {
+            const ret = await http.get<{ token: string }>(`/test/token`, { message: "hello" });
+            token = ret.token;
+            http.setAuth(token);
+        });
+        it(`/test/two should return succ`, async () => {
+            const ret = await http.get<{ message: string }>(`/test/two`, { message: "hello2" });
+            assert.equal(ret.message, "hello2");
         });
     });
 }

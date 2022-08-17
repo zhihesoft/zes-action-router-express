@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { injectable } from "tsyringe";
 import { ActionHook, ActionHookContext, ActionProcessor, ActionRouting } from "zes-action-router";
 
@@ -15,13 +16,13 @@ class TestProcess2 implements ActionProcessor {
     }
 }
 
-// @injectable()
-// class TestProcessToken implements ActionProcessor {
-//     process(): Promise<unknown> {
-//         return "";
-//     }
-
-// }
+@injectable()
+class TestProcessToken implements ActionProcessor {
+    async process(): Promise<unknown> {
+        const s = jwt.sign({ data: "any data" }, "111111", { algorithm: "HS256" });
+        return { token: s };
+    }
+}
 
 export class TestBeforeHook implements ActionHook {
     hook(context: ActionHookContext, args: unknown): unknown {
@@ -32,6 +33,7 @@ export class TestBeforeHook implements ActionHook {
 export const testRouter: ActionRouting[] = [
     { path: "one", token: TestProcess, option: { security: false } },
     { path: "two", token: TestProcess },
+    { path: "token", token: TestProcessToken, option: {security: false} },
     { path: "three", token: TestProcess },
     {
         path: "fold", token: [
