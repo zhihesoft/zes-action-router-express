@@ -42,7 +42,7 @@ export function expressTests() {
         });
         it(`/test/two should return 401`, async () => {
             await http.get<{ message: string }>(`/test/two`, { message: "hello" })
-                .then(ret => {
+                .then(() => {
                     assert.fail(`never succ`);
                 })
                 .catch(err => {
